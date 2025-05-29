@@ -1,0 +1,614 @@
+{
+  "rules": [
+    {
+      "id": "vendored-rules.generic.bicep.security.secure-parameter-for-secrets",
+      "languages": [
+        "generic"
+      ],
+      "message": "Mark sensitive parameters with the @secure() decorator. This avoids logging the value or displaying it in the Azure portal, Azure CLI, or Azure PowerShell.",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-532: Insertion of Sensitive Information into Log File"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW",
+        "owasp": [
+          "A09:2021 - Security Logging and Monitoring Failures"
+        ],
+        "references": [
+          "https://cwe.mitre.org/data/definitions/532.html",
+          "https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/scenarios-secrets"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "bicep"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.bicep"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern": "param $NAME string"
+        },
+        {
+          "pattern-not-inside": "@secure()\nparam $NAME string\n"
+        },
+        {
+          "metavariable-regex": {
+            "metavariable": "$NAME",
+            "regex": "(?i).*(password|secret|token)"
+          }
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.ci.audit.changed-semgrepignore",
+      "languages": [
+        "generic"
+      ],
+      "message": "`$1` has been added to the .semgrepignore list of ignored paths. Someone from app-sec may want to audit these changes.",
+      "metadata": {
+        "category": "best-practice",
+        "references": [
+          "https://semgrep.dev/docs/ignoring-files-folders-code/"
+        ],
+        "technology": [
+          "semgrep"
+        ]
+      },
+      "paths": {
+        "include": [
+          ".semgrepignore"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern-regex": "^(.*)$\n"
+        },
+        {
+          "pattern-not-regex": "^\\n.*$\n"
+        },
+        {
+          "pattern-not-regex": "^#.*$\n"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.ci.security.bash_reverse_shell",
+      "languages": [
+        "generic"
+      ],
+      "message": "Semgrep found a bash reverse shell",
+      "metadata": {
+        "category": "security",
+        "confidence": "HIGH",
+        "cwe": [
+          "CWE-94: Improper Control of Generation of Code ('Code Injection')"
+        ],
+        "cwe2022-top25": true,
+        "impact": "HIGH",
+        "likelihood": "MEDIUM",
+        "owasp": [
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://owasp.org/Top10/A03_2021-Injection"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "ci"
+        ]
+      },
+      "pattern-either": [
+        {
+          "pattern": "sh -i >& /dev/udp/.../... 0>&1\n"
+        },
+        {
+          "pattern": "<...>/dev/tcp/.../...; sh <&... >&... 2>&\n"
+        },
+        {
+          "pattern": "<...>/dev/tcp/.../...; cat <&... | while read line; do $line 2>&... >&...;done\n"
+        },
+        {
+          "pattern": "sh -i ...<...> /dev/tcp/.../... ...<&... 1>&... 2>&\n"
+        }
+      ],
+      "severity": "ERROR"
+    },
+    {
+      "id": "vendored-rules.generic.gradle.security.build-gradle-password-hardcoded",
+      "languages": [
+        "generic"
+      ],
+      "message": "A secret is hard-coded in the application. Secrets stored in source code, such as credentials, identifiers, and other types of sensitive data, can be leaked and used by internal or external malicious actors. It is recommended to rotate the secret and retrieve them from a secure secret vault or Hardware Security Module (HSM), alternatively environment variables can be used if allowed by your company policy.",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-798: Use of Hard-coded Credentials"
+        ],
+        "cwe2020-top25": true,
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "HIGH",
+        "likelihood": "LOW",
+        "owasp": [
+          "A07:2021 - Identification and Authentication Failures"
+        ],
+        "references": [
+          "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+        ],
+        "source_rule_url": "https://semgrep.dev/playground/r/qNU2d1G/achufistov6_personal_org.groovy-build-gradle-password-hardcoded",
+        "subcategory": [
+          "vuln"
+        ],
+        "technology": [
+          "secrets"
+        ],
+        "vulnerability_class": [
+          "Hard-coded Secrets"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*build.gradle"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern": "password = env[...] ?: \"$SECRET\"\n"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "fix-regex": {
+        "regex": "{{(.*?)}}",
+        "replacement": "\"{{\\1}}\""
+      },
+      "id": "vendored-rules.generic.html-templates.security.unquoted-attribute-var",
+      "languages": [
+        "generic"
+      ],
+      "message": "Detected a unquoted template variable as an attribute. If unquoted, a malicious actor could inject custom JavaScript handlers. To fix this, add quotes around the template expression, like this: \"{{ expr }}\".",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+        ],
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "html-templates"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.html",
+          "*.mustache",
+          "*.hbs"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern-inside": "<$TAG ...>"
+        },
+        {
+          "pattern-not-inside": "=\"...\""
+        },
+        {
+          "pattern-not-inside": "='...'"
+        },
+        {
+          "pattern": "{{ ... }}"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.html-templates.security.var-in-href",
+      "languages": [
+        "generic"
+      ],
+      "message": "Detected a template variable used in an anchor tag with the 'href' attribute. This allows a malicious actor to input the 'javascript:' URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use 'url_for()' to safely generate a URL. If using Django, use the 'url' filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash '/' to the variable for relative links (`href=\"/{{link}}\"`). You may also consider setting the Content Security Policy (CSP) header.",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+        ],
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://flask.palletsprojects.com/en/1.1.x/security/#cross-site-scripting-xss#:~:text=javascript:%20URI",
+          "https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#url",
+          "https://github.com/pugjs/pug/issues/2952",
+          "https://content-security-policy.com/"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "html-templates"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.html",
+          "*.mustache",
+          "*.hbs"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern-inside": "<a ...>"
+        },
+        {
+          "pattern-either": [
+            {
+              "pattern": "href = {{ ... }}"
+            },
+            {
+              "pattern": "href = \"{{ ... }}\""
+            },
+            {
+              "pattern": "href = '{{ ... }}'"
+            }
+          ]
+        },
+        {
+          "pattern-not-inside": "href = {{ url_for(...) ... }}"
+        },
+        {
+          "pattern-not-inside": "href = \"{{ url_for(...) ... }}\""
+        },
+        {
+          "pattern-not-inside": "href = '{{ url_for(...) ... }}'"
+        },
+        {
+          "pattern-not-inside": "href = \"/{{ ... }}\""
+        },
+        {
+          "pattern-not-inside": "href = '/{{ ... }}'"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.html-templates.security.var-in-script-src",
+      "languages": [
+        "generic"
+      ],
+      "message": "Detected a template variable used as the 'src' in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent malicious URLs from being injected and could results in a cross-site scripting (XSS) vulnerability. Prefer not to dynamically generate the 'src' attribute and use static URLs instead. If you must do this, carefully check URLs against an allowlist and be sure to URL-encode the result.",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+        ],
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://adamj.eu/tech/2020/02/18/safely-including-data-for-javascript-in-a-django-template/?utm_campaign=Django%2BNewsletter&utm_medium=rss&utm_source=Django_Newsletter_12A",
+          "https://www.veracode.com/blog/secure-development/nodejs-template-engines-why-default-encoders-are-not-enough",
+          "https://github.com/ESAPI/owasp-esapi-js"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "html-templates"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.mustache",
+          "*.hbs",
+          "*.html"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern-inside": "<script ...>"
+        },
+        {
+          "pattern-not-inside": "src = '...'"
+        },
+        {
+          "pattern-not-inside": "src = \"...\""
+        },
+        {
+          "pattern-not-inside": "nonce = '...'"
+        },
+        {
+          "pattern-not-inside": "nonce = \"...\""
+        },
+        {
+          "pattern": "{{ ... }}"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.html-templates.security.var-in-script-tag",
+      "languages": [
+        "generic"
+      ],
+      "message": "Detected a template variable used in a script tag. Although template variables are HTML escaped, HTML escaping does not always prevent cross-site scripting (XSS) attacks when used directly in JavaScript. If you need this data on the rendered page, consider placing it in the HTML portion (outside of a script tag). Alternatively, use a JavaScript-specific encoder, such as the one available in OWASP ESAPI. For Django, you may also consider using the 'json_script' template tag and retrieving the data in your script by using the element ID (e.g., `document.getElementById`).",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+        ],
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://adamj.eu/tech/2020/02/18/safely-including-data-for-javascript-in-a-django-template/?utm_campaign=Django%2BNewsletter&utm_medium=rss&utm_source=Django_Newsletter_12A",
+          "https://www.veracode.com/blog/secure-development/nodejs-template-engines-why-default-encoders-are-not-enough",
+          "https://github.com/ESAPI/owasp-esapi-js"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "html-templates"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.mustache",
+          "*.hbs",
+          "*.html"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern-inside": "<script ...> ... </script>"
+        },
+        {
+          "pattern-not-inside": "<script ... $ATTR = \"...\" ...>"
+        },
+        {
+          "pattern-not-inside": "<script ... $ATTR = '...' ...>"
+        },
+        {
+          "pattern": "{{ ... }}"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "fix-regex": {
+        "regex": "location\\s+([A-Za-z0-9/-_\\.]+)",
+        "replacement": "location \\1/"
+      },
+      "id": "vendored-rules.generic.nginx.security.alias-path-traversal",
+      "languages": [
+        "generic"
+      ],
+      "message": "The alias in this location block is subject to a path traversal because the location path does not end in a path separator (e.g., '/'). To fix, add a path separator to the end of the path.",
+      "metadata": {
+        "category": "security",
+        "confidence": "LOW",
+        "cwe": [
+          "CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+        ],
+        "cwe2021-top25": true,
+        "cwe2022-top25": true,
+        "impact": "LOW",
+        "likelihood": "LOW",
+        "owasp": [
+          "A05:2017 - Broken Access Control",
+          "A01:2021 - Broken Access Control"
+        ],
+        "references": [
+          "https://owasp.org/Top10/A01_2021-Broken_Access_Control",
+          "https://www.acunetix.com/vulnerabilities/web/path-traversal-via-misconfigured-nginx-alias/",
+          "https://www.youtube.com/watch?v=CIhHpkybYsY",
+          "https://github.com/orangetw/My-Presentation-Slides/blob/main/data/2018-Breaking-Parser-Logic-Take-Your-Path-Normalization-Off-And-Pop-0days-Out.pdf"
+        ],
+        "source-rule-url": "https://github.com/yandex/gixy/blob/master/docs/en/plugins/aliastraversal.md",
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "nginx"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.conf",
+          "*.vhost",
+          "sites-available/*",
+          "sites-enabled/*"
+        ]
+      },
+      "patterns": [
+        {
+          "pattern": "location $...LOCATION {\n  ...\n  alias .../;\n  ...\n}\n"
+        },
+        {
+          "metavariable-pattern": {
+            "metavariable": "$...LOCATION",
+            "pattern-regex": "^.*[^/]$"
+          }
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.nginx.security.dynamic-proxy-host",
+      "languages": [
+        "generic"
+      ],
+      "message": "The host for this proxy URL is dynamically determined. This can be dangerous if the host can be injected by an attacker because it may forcibly alter destination of the proxy. Consider hardcoding acceptable destinations and retrieving them with 'map' or something similar.",
+      "metadata": {
+        "category": "security",
+        "confidence": "MEDIUM",
+        "cwe": [
+          "CWE-441: Unintended Proxy or Intermediary ('Confused Deputy')"
+        ],
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A01:2021 - Broken Access Control"
+        ],
+        "references": [
+          "https://nginx.org/en/docs/http/ngx_http_map_module.html"
+        ],
+        "source-rule-url": "https://github.com/yandex/gixy/blob/master/docs/en/plugins/ssrf.md",
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "nginx"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.conf",
+          "*.vhost",
+          "sites-available/*",
+          "sites-enabled/*"
+        ]
+      },
+      "pattern-either": [
+        {
+          "pattern": "proxy_pass $SCHEME://$$HOST ...;"
+        },
+        {
+          "pattern": "proxy_pass $$SCHEME://$$HOST ...;"
+        }
+      ],
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.nginx.security.dynamic-proxy-scheme",
+      "languages": [
+        "generic"
+      ],
+      "message": "The protocol scheme for this proxy is dynamically determined. This can be dangerous if the scheme can be injected by an attacker because it may forcibly alter the connection scheme. Consider hardcoding a scheme for this proxy.",
+      "metadata": {
+        "category": "security",
+        "confidence": "MEDIUM",
+        "cwe": [
+          "CWE-16: CWE CATEGORY: Configuration"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW",
+        "owasp": [
+          "A06:2017 - Security Misconfiguration",
+          "A05:2021 - Security Misconfiguration"
+        ],
+        "references": [
+          "https://github.com/yandex/gixy/blob/master/docs/en/plugins/ssrf.md"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "nginx"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.conf",
+          "*.vhost",
+          "sites-available/*",
+          "sites-enabled/*"
+        ]
+      },
+      "pattern": "proxy_pass $$SCHEME:// ...;",
+      "severity": "WARNING"
+    },
+    {
+      "id": "vendored-rules.generic.nginx.security.header-injection",
+      "languages": [
+        "generic"
+      ],
+      "message": "The $$VARIABLE path parameter is added as a header in the response. This could allow an attacker to inject a newline and add a new header into the response. This is called HTTP response splitting. To fix, do not allow whitespace in the path parameter: '[^\\s]+'.",
+      "metadata": {
+        "category": "security",
+        "confidence": "MEDIUM",
+        "cwe": [
+          "CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Request/Response Splitting')"
+        ],
+        "impact": "MEDIUM",
+        "likelihood": "LOW",
+        "owasp": [
+          "A03:2021 - Injection"
+        ],
+        "references": [
+          "https://github.com/yandex/gixy/blob/master/docs/en/plugins/httpsplitting.md",
+          "https://owasp.org/www-community/attacks/HTTP_Response_Splitting"
+        ],
+        "subcategory": [
+          "audit"
+        ],
+        "technology": [
+          "nginx"
+        ]
+      },
+      "paths": {
+        "include": [
+          "*.conf",
+          "*.vhost",
+          "sites-available/*",
+          "sites-enabled/*"
+        ]
+      },
+      "pattern": "location ... <$VARIABLE> ... {\n  ...\n  add_header ... $$VARIABLE\n  ...\n}\n",
+      "severity": "ERROR"
+    },
+    {
+      "id": "vendored-rules.generic.nginx.security.header-redefinition",
+      "languages": [
+        "generic"
+      ],
+      "message": "The 'add_header' directive is called in a 'location' block after headers have been set at the server block. Calling 'add_header' in the location block will actually overwrite the headers defined in the server block, no matter which headers are set. To fix this, explicitly set all headers or set all headers in the server block.",
+      "metadata": {
+        "category": "security",
+        "
