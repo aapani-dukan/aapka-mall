@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 11% 98%; /* #F5F7FA */
+  --foreground: 215 28% 17%; /* #1F2937 */
+  --muted: 210 11% 95%; /* #F1F5F9 */
+  --muted-foreground: 215 10% 55%; /* #64748B */
+  --popover: 0 0% 100%; /* #FFFFFF */
+  --popover-foreground: 215 28% 17%; /* #1F2937 */
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-foreground: 215 28% 17%; /* #1F2937 */
+  --border: 214 13% 88%; /* #E2E8F0 */
+  --input: 214 13% 88%; /* #E2E8F0 */
+  --primary: 217 91% 60%; /* #2563EB */
+  --primary-foreground: 210 40% 98%; /* #F8FAFC */
+  --secondary: 158 64% 52%; /* #059669 */
+  --secondary-foreground: 210 40% 98%; /* #F8FAFC */
+  --accent: 0 84% 60%; /* #DC2626 */
+  --accent-foreground: 210 40% 98%; /* #F8FAFC */
+  --destructive: 0 84% 60%; /* #DC2626 */
+  --destructive-foreground: 210 40% 98%; /* #F8FAFC */
+  --ring: 217 91% 60%; /* #2563EB */
+  --radius: 0.5rem;
+  --trust: 159 65% 53%; /* #10B981 */
+  --chart-1: 217 91% 60%; /* #2563EB */
+  --chart-2: 158 64% 52%; /* #059669 */
+  --chart-3: 45 93% 47%; /* #F59E0B */
