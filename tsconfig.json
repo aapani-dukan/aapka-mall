@@ -1,28 +1,35 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "rootDir": ".",                             // प्रोजेक्ट का रूट डायरेक्टरी
-    "outDir": "dist",                           // आउटपुट बिल्ड डायरेक्टरी
-    "strict": true,                             // सभी strict checks ऑन
-    "esModuleInterop": true,                    // default import support
-    "skipLibCheck": true,                       // लाइब्रेरी चेक स्किप करें
-    "forceConsistentCasingInFileNames": true,  // केस-सेंसिटिव फाइल नाम
-    "resolveJsonModule": true,                  // JSON फाइलें import करने की सुविधा
-    "baseUrl": ".",                             // base path सेट करना
+    "target": "ES6",                    // आउटपुट JS वर्शन
+    "module": "ESNext",                 // मॉड्यूल सिस्टम (React के लिए ESModules)
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    "jsx": "react-jsx",                 // React 17+ JSX ट्रांसफॉर्म सपोर्ट
+
+    "strict": true,                    // सारे strict type checks ऑन
+    "esModuleInterop": true,           // CommonJS और ESModule इंटरेक्शन सही से
+    "skipLibCheck": true,              // type libraries चेक स्किप करें (तेज़ी के लिए)
+    "forceConsistentCasingInFileNames": true,
+
+    "resolveJsonModule": true,         // JSON import की सुविधा
+
+    "baseUrl": ".",                    // path alias के लिए बेस
     "paths": {
-      "@client/*": ["client/src/*"],            // क्लाइंट के लिए alias
-      "@server/*": ["server/*"],                // सर्वर के लिए alias
-      "@shared/*": ["shared/*"]                 // शेयर की गई कोड के लिए alias
-    }
+      "@client/*": ["client/src/*"],
+      "@server/*": ["server/*"],
+      "@shared/*": ["shared/*"]
+    },
+
+    "rootDir": ".",                    // सोर्स फाइलों का रूट
+    "outDir": "dist"                   // बिल्ड फाइलों के लिए आउटपुट फोल्डर
   },
   "include": [
-    "client/src/**/*",                          // क्लाइंट कोड शामिल करें
-    "shared/**/*",                              // शेयर कोड शामिल करें
-    "server/**/*"                               // सर्वर कोड शामिल करें
+    "client/src/**/*",
+    "shared/**/*",
+    "server/**/*"
   ],
   "exclude": [
-    "node_modules",                             // node_modules को exclude करें
-    "dist"                                      // dist फोल्डर को exclude करें
+    "node_modules",
+    "dist"
   ]
 }
