@@ -61,7 +61,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border border-gray-200;  /* या जो भी सही class हो */
   }
 
   body {
