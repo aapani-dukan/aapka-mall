@@ -637,15 +637,19 @@ export class DatabaseStorage implements IStorage {
       .returning();
     return seller;
   }
-        approvedBy: adminId,
-        rejectionReason: null,
-        updatedAt: new Date()
-      })
-      .where(eq(products.id, productId))
-      .returning();
-    return product;
-  }
-
+      async approveProduct(productId: number, adminId: string): Promise<Product> {
+  const [product] = await db
+    .update(products)
+    .set({
+      approvalStatus: "approved",
+      approvedBy: adminId,
+      rejectionReason: null,
+      updatedAt: new Date()
+    })
+    .where(eq(products.id, productId))
+    .returning();
+  return product;
+      }  
   async rejectProduct(productId: number, reason: string, adminId: string): Promise<Product> {
     const [product] = await db
       .update(products)
