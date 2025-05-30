@@ -2,27 +2,27 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "rootDir": ".",                        // प्रोजेक्ट का रूट
-    "outDir": "dist",                      // आउटपुट बिल्ड डायरेक्टरी
-    "strict": true,                        // सभी strict checks ऑन
-    "esModuleInterop": true,              // default import support
-    "skipLibCheck": true,                 // lib files को स्किप करें
-    "forceConsistentCasingInFileNames": true, // केस-सेंसिटिव फाइल नाम
-    "resolveJsonModule": true,            // JSON फाइलें import करने की सुविधा
-    "baseUrl": ".",                       // आसान pathing के लिए
+    "rootDir": ".",                             // प्रोजेक्ट का रूट डायरेक्टरी
+    "outDir": "dist",                           // आउटपुट बिल्ड डायरेक्टरी
+    "strict": true,                             // सभी strict checks ऑन
+    "esModuleInterop": true,                    // default import support
+    "skipLibCheck": true,                       // लाइब्रेरी चेक स्किप करें
+    "forceConsistentCasingInFileNames": true,  // केस-सेंसिटिव फाइल नाम
+    "resolveJsonModule": true,                  // JSON फाइलें import करने की सुविधा
+    "baseUrl": ".",                             // base path सेट करना
     "paths": {
-      "@client/*": ["client/src/*"],
-      "@server/*": ["server/*"],
-      "@shared/*": ["shared/*"]
+      "@client/*": ["client/src/*"],            // क्लाइंट के लिए alias
+      "@server/*": ["server/*"],                // सर्वर के लिए alias
+      "@shared/*": ["shared/*"]                 // शेयर की गई कोड के लिए alias
     }
   },
   "include": [
-    "client/src/**/*",
-    "shared/**/*",
-    "server/**/*"
+    "client/src/**/*",                          // क्लाइंट कोड शामिल करें
+    "shared/**/*",                              // शेयर कोड शामिल करें
+    "server/**/*"                               // सर्वर कोड शामिल करें
   ],
   "exclude": [
-    "node_modules",
-    "dist"
+    "node_modules",                             // node_modules को exclude करें
+    "dist"                                      // dist फोल्डर को exclude करें
   ]
 }
