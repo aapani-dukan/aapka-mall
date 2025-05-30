@@ -637,23 +637,24 @@ export class DatabaseStorage implements IStorage {
       .returning();
     return seller;
   }
-      async approveProduct(productId: number, adminId: string): Promise<Product> {
-  const [product] = await db
-    .update(products)
-    .set({
-      approvalStatus: "approved",
-      approvedBy: adminId,
-      rejectionReason: null,
-      updatedAt: new Date()
-    })
-    .where(eq(products.id, productId))
-    .returning();
-  return product;
-      }  
+   async approveProduct(productId: number, adminId: string): Promise<Product> {
+    const [product] = await db
+      .update(products)
+      .set({
+        approvalStatus: "approved",
+        approvedBy: adminId,
+        rejectionReason: null,
+        updatedAt: new Date()
+      })
+      .where(eq(products.id, productId))
+      .returning();
+    return product;
+  }
+
   async rejectProduct(productId: number, reason: string, adminId: string): Promise<Product> {
     const [product] = await db
       .update(products)
-      .set({ 
+      .set({
         approvalStatus: "rejected",
         rejectionReason: reason,
         approvedBy: adminId,
@@ -663,6 +664,6 @@ export class DatabaseStorage implements IStorage {
       .returning();
     return product;
   }
-}
+} 
 
 export const storage = new DatabaseStorage();
