@@ -27,3 +27,195 @@
   --chart-1: 217 91% 60%; /* #2563EB */
   --chart-2: 158 64% 52%; /* #059669 */
   --chart-3: 45 93% 47%; /* #F59E0B */
+  --chart-4: 260 85% 63%; /* #8B5CF6 */
+  --chart-5: 346 77% 50%; /* #EF4444 */
+}
+
+.dark {
+  --background: 224 71% 4%; /* #0F172A */
+  --foreground: 210 40% 98%; /* #F8FAFC */
+  --muted: 223 47% 11%; /* #1E293B */
+  --muted-foreground: 215 20% 65%; /* #94A3B8 */
+  --popover: 224 71% 4%; /* #0F172A */
+  --popover-foreground: 210 40% 98%; /* #F8FAFC */
+  --card: 224 71% 4%; /* #0F172A */
+  --card-foreground: 210 40% 98%; /* #F8FAFC */
+  --border: 215 28% 17%; /* #334155 */
+  --input: 215 28% 17%; /* #334155 */
+  --primary: 217 91% 60%; /* #2563EB */
+  --primary-foreground: 210 40% 98%; /* #F8FAFC */
+  --secondary: 158 64% 52%; /* #059669 */
+  --secondary-foreground: 210 40% 98%; /* #F8FAFC */
+  --accent: 0 84% 60%; /* #DC2626 */
+  --accent-foreground: 210 40% 98%; /* #F8FAFC */
+  --destructive: 0 84% 60%; /* #DC2626 */
+  --destructive-foreground: 210 40% 98%; /* #F8FAFC */
+  --ring: 217 91% 60%; /* #2563EB */
+  --trust: 159 65% 53%; /* #10B981 */
+  --chart-1: 217 91% 60%; /* #2563EB */
+  --chart-2: 158 64% 52%; /* #059669 */
+  --chart-3: 45 93% 47%; /* #F59E0B */
+  --chart-4: 260 85% 63%; /* #8B5CF6 */
+  --chart-5: 346 77% 50%; /* #EF4444 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Trust badge styles */
+.trust-badge {
+  @apply flex items-center text-sm text-green-600 bg-green-50 px-2 py-1 rounded-full;
+}
+
+.dark .trust-badge {
+  @apply text-green-400 bg-green-950;
+}
+
+/* Product card hover effects */
+.product-card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.product-card:hover {
+  @apply shadow-lg -translate-y-1;
+}
+
+/* Category card styles */
+.category-card {
+  @apply transition-transform duration-200 ease-in-out cursor-pointer;
+}
+
+.category-card:hover {
+  @apply scale-105;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* Cart drawer styles */
+.cart-drawer {
+  @apply fixed inset-0 z-50 flex;
+}
+
+.cart-overlay {
+  @apply absolute inset-0 bg-black/50;
+}
+
+.cart-content {
+  @apply relative ml-auto h-full w-full max-w-md bg-card shadow-xl;
+}
+
+/* Notification bar styles */
+.notification-bar {
+  @apply bg-primary text-primary-foreground text-center py-2 text-sm font-medium;
+}
+
+/* Seller verification badge */
+.verified-seller {
+  @apply inline-flex items-center text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full;
+}
+
+.dark .verified-seller {
+  @apply text-green-400 bg-green-950;
+}
+
+/* Responsive grid utilities */
+.products-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+.categories-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6;
+}
+
+.sellers-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+/* Button variants */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg font-medium transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 px-4 py-2 rounded-lg font-medium transition-colors;
+}
+
+.btn-outline {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-4 py-2 rounded-lg font-medium transition-colors;
+}
+
+/* Search input focus styles */
+.search-input:focus {
+  @apply ring-2 ring-primary ring-offset-2 border-primary;
+}
+
+/* Hero section styles */
+.hero-gradient {
+  @apply bg-gradient-to-r from-primary to-blue-600;
+}
+
+.seller-gradient {
+  @apply bg-gradient-to-r from-secondary to-green-600;
+}
