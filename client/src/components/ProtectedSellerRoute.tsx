@@ -40,3 +40,22 @@ export default function ProtectedSellerRoute({ children }: ProtectedSellerRouteP
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md w-full">
+          <CardHeader className="text-center">
+            <Store className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <CardTitle>Seller Registration Required</CardTitle>
+            <CardDescription>
+              You need to register as a seller to access the seller dashboard
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-center">
+            <Button onClick={openSellerModal} className="w-full">
+              Register as Seller
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+}
