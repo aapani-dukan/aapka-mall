@@ -585,4 +585,80 @@ export class DatabaseStorage implements IStorage {
           panNumber: sellers.panNumber,
           bankAccountNumber: sellers.bankAccountNumber,
           ifscCode: sellers.ifscCode,
-          description: sellers.descrip}
+          description: sellers.description:
+          logo: sellers.logo,
+          approvalStatus: sellers.approvalStatus,
+          rejectionReason: sellers.rejectionReason,
+          approvedAt: sellers.approvedAt,
+          approvedBy: sellers.approvedBy,
+          isActive: sellers.isActive,
+          createdAt: sellers.createdAt,
+          updatedAt: sellers.updatedAt,
+          user: users
+        },
+        category: categories
+      })
+      .from(products)
+      .leftJoin(sellers, eq(products.sellerId, sellers.id))
+      .leftJoin(users, eq(sellers.userId, users.id))
+      .leftJoin(categories, eq(products.categoryId, categories.id))
+      .where(eq(products.approvalStatus, "pending"));
+  }
+
+  async getPendingFoodItems(): Promise<any[]> {
+    return [];
+  }
+
+  async approveVendor(vendorId: number, adminId: string): Promise<Seller> {
+    const [seller] = await db
+      .update(sellers)
+      .set({ 
+        approvalStatus: "approved",
+        approvedAt: new Date(),
+        approvedBy: adminId,
+        rejectionReason: null,
+        updatedAt: new Date()
+      })
+      .where(eq(sellers.id, vendorId))
+      .returning();
+    return seller;
+  }
+
+  async rejectVendor(vendorId: number, reason: string, adminId: string): Promise<Seller> {
+    const [seller] = await db
+      .update(sellers)
+      .set({ 
+        approvalStatus: "rejected",
+        rejectionReason: reason,
+        approvedBy: adminId,
+        updatedAt: new Date()
+      })
+      .where(eq(sellers.id, vendorId))
+      .returning();
+    return seller;
+  }
+        approvedBy: adminId,
+        rejectionReason: null,
+        updatedAt: new Date()
+      })
+      .where(eq(products.id, productId))
+      .returning();
+    return product;
+  }
+
+  async rejectProduct(productId: number, reason: string, adminId: string): Promise<Product> {
+    const [product] = await db
+      .update(products)
+      .set({ 
+        approvalStatus: "rejected",
+        rejectionReason: reason,
+        approvedBy: adminId,
+        updatedAt: new Date()
+      })
+      .where(eq(products.id, productId))
+      .returning();
+    return product;
+  }
+}
+
+export const storage = new DatabaseStorage();
