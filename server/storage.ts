@@ -585,7 +585,7 @@ export class DatabaseStorage implements IStorage {
           panNumber: sellers.panNumber,
           bankAccountNumber: sellers.bankAccountNumber,
           ifscCode: sellers.ifscCode,
-          description: sellers.description:
+          description: sellers.description,
           logo: sellers.logo,
           approvalStatus: sellers.approvalStatus,
           rejectionReason: sellers.rejectionReason,
