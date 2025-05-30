@@ -495,4 +495,126 @@ export default function Landing() {
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-             
+                               <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+                  <span>Same-city customer reach</span>
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+                  <span>Quick inventory management</span>
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+                  <span>Daily essentials focused platform</span>
+                </div>
+              </div>
+              
+              <Button 
+                size="lg"
+                onClick={openSellerModal}
+                className="bg-white text-secondary hover:bg-gray-100 font-semibold"
+              >
+                Start Selling Now
+              </Button>
+            </div>
+            
+            <Card className="bg-white shadow-2xl">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-foreground mb-4">Seller Dashboard Preview</h3>
+                
+                {/* Dashboard metrics */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div
+                                        <div className="text-sm text-muted-foreground">Total Sales</div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-secondary">156</div>
+                    <div className="text-sm text-muted-foreground">Orders</div>
+                  </div>
+                  <div className="bg-yellow-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-yellow-600">24</div>
+                    <div className="text-sm text-muted-foreground">Products</div>
+                  </div>
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">4.8</div>
+                    <div className="text-sm text-muted-foreground">Rating</div>
+                  </div>
+                </div>
+                
+                {/* Recent orders */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3">Recent Orders</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center p-2 bg-muted rounded">
+                      <span className="text-sm">Wireless Headphones</span>
+                      <span className="text-sm font-semibold text-secondary">₹2,999</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-muted rounded">
+                      <span className="text-sm">Cotton T-Shirt</span>
+                      <span className="text-sm font-semibold text-secondary">₹699</span>
+                    </div>
+                    <div className="flex justify-between items-center p-2 bg-muted rounded">
+                      <span className="text-sm">Plant Collection</span>
+                      <span className="text-sm font-semibold text-secondary">₹1,499</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Aap Ka Mall</h3>
+              <p className="text-gray-300 mb-4">
+                India's trusted multi-vendor marketplace connecting millions of buyers with verified sellers nationwide.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">For Customers</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><button className="hover:text-white transition-colors">Browse Products</button></li>
+                <li><button className="hover:text-white transition-colors">Track Orders</button></li>
+                <li><button className="hover:text-white transition-colors">Return Policy</button></li>
+                <li><button className="hover:text-white transition-colors">Customer Support</button></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">For Sellers</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><button onClick={openSellerModal} className="hover:text-white transition-colors">Start Selling</button></li>
+                <li><button className="hover:text-white transition-colors">Seller Dashboard</button></li>
+                <li><button className="hover:text-white transition-colors">Seller Guidelines</button></li>
+                <li><button className="hover:text-white transition-colors">Seller Support</button></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li><button className="hover:text-white transition-colors">About Us</button></li>
+                <li><button className="hover:text-white transition-colors">Privacy Policy</button></li>
+                
+<li><button className="hover:text-white transition-colors">Terms of Service</button></li>
+                <li><button className="hover:text-white transition-colors">Contact</button></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Aap Ka Mall. All rights reserved. | Made with ❤️ in India</p>
+          </div>
+        </div>
+      </footer>
+
+      <SellerRegistrationModal />
+    </div>
+  );
+      }
+      
