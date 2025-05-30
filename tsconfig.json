@@ -1,25 +1,17 @@
 {
-  "include": ["client/src/**/*", "shared/**/*", "server/**/*"],
-  "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
-    "noEmit": false,
-    "outDir": "dist",
-    "rootDir": "."
-    "module": "CommonJS",
+    "rootDir": ".",            // या "./" जिससे client, shared, server सब आ जाएं
+    "outDir": "dist",          // अगर output चाहिए तो
     "strict": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "jsx": "preserve",
+    "module": "commonjs",
+    "target": "es6",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "types": ["node", "vite/client"],
-    "paths": {
-      "@/*": ["./client/src/*"],
-      "@shared/*": ["./shared/*"]
-    }
-  }
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "client/src/**/*",
+    "shared/**/*",
+    "server/**/*"
+  ]
 }
