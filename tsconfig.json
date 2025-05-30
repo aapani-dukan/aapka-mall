@@ -6,7 +6,7 @@
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": false,
     "outDir": "dist",
-    "rootDir": "server",
+    "rootDir": "."
     "module": "CommonJS",
     "strict": true,
     "lib": ["esnext", "dom", "dom.iterable"],
