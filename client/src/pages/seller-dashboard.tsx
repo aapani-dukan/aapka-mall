@@ -824,3 +824,4 @@ export default function SellerDashboard() {
     </div>
   );
 }
+export default SellerDashboard;
