@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiRequest } from "../utils/apiRequest";
+
 
 interface Vendor {
   _id: string;
