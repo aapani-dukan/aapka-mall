@@ -478,70 +478,78 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Seller Registration CTA */}
-      <section className="seller-gradient py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <h2 className="text-4xl font-bold mb-6">Join as Local Seller</h2>
-              <p className="text-xl mb-8 text-green-100">
-                Register your local grocery store, kirana shop, or provision store to reach customers in your city with 1-hour delivery.
-              </p>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-                  <span>Free registration for local shops</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-                               <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-                  <span>Same-city customer reach</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-                  <span>Quick inventory management</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
-                  <span>Daily essentials focused platform</span>
-                </div>
-              </div>
-              
-              <Button 
-                size="lg"
-                onClick={openSellerModal}
-                className="bg-white text-secondary hover:bg-gray-100 font-semibold"
-              >
-                Start Selling Now
-              </Button>
-            </div>
-            
-            <Card className="bg-white shadow-2xl">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-4">Seller Dashboard Preview</h3>
-                
-                {/* Dashboard metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div
-           className="bg-blue-50 p-4 rounded-lg">         
+    
+     {/* Seller Registration CTA */}
+<section className="seller-gradient py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="text-white">
+        <h2 className="text-4xl font-bold mb-6">Join as Local Seller</h2>
+        <p className="text-xl mb-8 text-green-100">
+          Register your local grocery store, kirana shop, or provision store to reach customers in your city with 1-hour delivery.
+        </p>
 
-                    
-                                        <div className="text-sm text-muted-foreground">Total Sales</div>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-secondary">156</div>
-                    <div className="text-sm text-muted-foreground">Orders</div>
-                  </div>
-                  <div className="bg-yellow-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-yellow-600">24</div>
-                    <div className="text-sm text-muted-foreground">Products</div>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">4.8</div>
-                    <div className="text-sm text-muted-foreground">Rating</div>
-                  </div>
-                </div>
+        <div className="space-y-4 mb-8">
+          <div className="flex items-center">
+            <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+            <span>Free registration for local shops</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+            <span>Same-city customer reach</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+            <span>Quick inventory management</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="h-5 w-5 text-green-200 mr-3" />
+            <span>Daily essentials focused platform</span>
+          </div>
+        </div>
+
+        <Button 
+          size="lg"
+          onClick={openSellerModal}
+          className="bg-white text-secondary hover:bg-gray-100 font-semibold"
+        >
+          Start Selling Now
+        </Button>
+      </div>
+
+      <Card className="bg-white shadow-2xl">
+        <CardContent className="p-6">
+          <h3 className="text-xl font-bold text-foreground mb-4">Seller Dashboard Preview</h3>
+
+          {/* Dashboard metrics */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="text-2xl font-bold text-blue-600">₹45,230</div>
+              <div className="text-sm text-muted-foreground">Total Sales</div>
+            </div>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="text-2xl font-bold text-secondary">156</div>
+              <div className="text-sm text-muted-foreground">Orders</div>
+            </div>
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <div className="text-2xl font-bold text-yellow-600">24</div>
+              <div className="text-sm text-muted-foreground">Products</div>
+            </div>
+            <div className="bg-purple-50 p-4 rounded-lg">
+              <div className="text-2xl font-bold text-purple-600">4.8</div>
+              <div className="text-sm text-muted-foreground">Rating</div>
+            </div>
+          </div>
+
+          {/* Recent orders */}
+          <div className="text-sm text-muted-foreground">More features coming soon...</div>
+
+        </CardContent>
+      </Card>
+
+    </div>
+  </div>
+</section>
                 
                 {/* Recent orders */}
                 <div>
