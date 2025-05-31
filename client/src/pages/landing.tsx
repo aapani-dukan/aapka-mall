@@ -551,29 +551,7 @@ export default function Landing() {
   </div>
 </section>
                 
-                {/* Recent orders */}
-                <div>
-                  <h4 className="font-semibold text-foreground mb-3">Recent Orders</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center p-2 bg-muted rounded">
-                      <span className="text-sm">Wireless Headphones</span>
-                      <span className="text-sm font-semibold text-secondary">₹2,999</span>
-                    </div>
-                    <div className="flex justify-between items-center p-2 bg-muted rounded">
-                      <span className="text-sm">Cotton T-Shirt</span>
-                      <span className="text-sm font-semibold text-secondary">₹699</span>
-                    </div>
-                    <div className="flex justify-between items-center p-2 bg-muted rounded">
-                      <span className="text-sm">Plant Collection</span>
-                      <span className="text-sm font-semibold text-secondary">₹1,499</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+              
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
