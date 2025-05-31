@@ -529,4 +529,292 @@ export default function SellerDashboard() {
                               name="originalPrice"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Original Price 
+                                   <FormLabel>Original Price (₹)</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} type="number" step="0.01" />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                              control={productForm.control}
+                              name="categoryId"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Category</FormLabel>
+                                  <Select onValueChange={(value) => field.onChange(parseInt(value))}>
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select category" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {categories?.map((category) => (
+                                        <SelectItem key={category.id} value={category.id.toString()}>
+                                          {category.name}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                  </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <div className="flex justify-end space-x-2">
+                            <Button 
+                              type="button" 
+                              variant="outline" 
+                              onClick={() => setIsProductDialogOpen(false)}
+                            >
+                              Cancel
+                            </Button>
+                            <Button type="submit" disabled={productMutation.isPending}>
+                              {productMutation.isPending ? "Saving..." : (editingProduct ? "Update" : "Create")}
+                            </Button>
+                          </div>
+                        </form>
+                      </Form>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {productsLoading ? (
+                  <div className="space-y-4">
+                    {[...Array(3)].map((_, i) => (
+                      <div key={i} className="flex items-center space-x-4 p-4 border rounded-lg">
+                        <Skeleton className="w-16 h-16" />
+                        <div className="flex-1 space-y-2">
+                          <Skeleton className="h-4 w-3/4" />
+                          <Skeleton className="h-3 w-1/2" />
+                        </div>
+                        <Skeleton className="h-8 w-20" />
+                      </div>
+                    ))}
+                  </div>
+                ) : products?.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">No products yet</h3>
+                    <p className="text-muted-foreground">Add your first product to start selling</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {products?.map((product) => (
+                      <div key={product.id} className="flex items-center space-x-4 p-4 border rounded-lg">
+                        <div className="w-16 h-16 bg-muted rounded flex items-center justify-center">
+                          {product.images && product.images.length > 0 ? (
+                            <img 
+                              src={product.images[0]} 
+                              alt={product.name}
+                              className="w-full h-full object-cover rounded"
+                            />
+                          ) : (
+                            <Package className="h-6 w-6" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          
+                                   >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleDeleteProduct(product.id)}
+                            disabled={deleteProductMutation.isPending}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Orders Tab */}
+          <TabsContent value="orders" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Orders</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {ordersLoading ? (
+                  <div className="space-y-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Skeleton key={i} className="h-16" />
+                    ))}
+                  </div>
+                ) : orders?.length === 0 ? (
+                  <div className="text-center py-8">
+                    <ShoppingCart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">No orders yet</h3>
+                    <p className="text-muted-foreground">Orders will appear here when customers purchase your products</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {orders?.map((order) => (
+                      <div key={order.id} className="p-4 border rounded-lg">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h4 className="font-semibold">Order #{order.orderNumber}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {new Date(order.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-semibold">₹{parseFloat(order.total).toLocaleString()}</p>
+                            <Badge variant={
+                              order.status === 'delivered' ? 'default' :
+                              order.status === 'shipped' ? 'secondary' :
+                              order.status === 'confirmed' ? 'outline' : 'destructive'
+                            }>
+                              {order.status}
+                            </Badge>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          {order.orderItems.map((item) => (
+                            <div key={item.id} className="flex justify-between text-sm">
+                              <span>{item.product.name} × {item.quantity}</span>
+                              <span>₹{parseFloat(item.total).toLocaleString()}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Profile Tab */}
+          <TabsContent value="profile" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Seller Profile</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Form {...sellerForm}>
+                  <form onSubmit={sellerForm.handleSubmit(onSellerSubmit)} className="space-y-4">
+                    <FormField
+                      control={sellerForm.control}
+                      name="businessName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Business Name</FormLabel>
+                          <FormControl>
+                                                      <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={sellerForm.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Business Description</FormLabel>
+                          <FormControl>
+                            <Textarea {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={sellerForm.control}
+                      name="businessAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Business Address</FormLabel>
+                          <FormControl>
+                            <Textarea {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={sellerForm.control}
+                        name="businessPhone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Business Phone</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                                              render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>GST Number</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={sellerForm.control}
+                        name="bankAccountNumber"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Bank Account Number</FormLabel>
+                            <FormControl>
+                              <Input {...field} type="password" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={sellerForm.control}
+                        name="ifscCode"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>IFSC Code</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <Button type="submit" disabled={sellerMutation.isPending}>
+                      {sellerMutation.isPending ? "Updating..." : "Update Profile"}
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+                        </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+                      }
+                      
