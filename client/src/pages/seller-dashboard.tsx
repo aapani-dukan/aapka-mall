@@ -620,13 +620,19 @@ export default function SellerDashboard() {
                             <Package className="h-6 w-6" />
                           )}
                         </div>
-                        <div className="flex-1">
-                          
-                                   >
-                            <Edit className="h-4 w-4" />
-                          </Button>
+                                                <div className="flex-1">
+                          <h4 className="font-semibold">{product.name}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            ₹{parseFloat(product.price).toLocaleString()} • Stock: {product.stock}
+                          </p>
+                          <Badge variant={product.isActive ? "default" : "secondary"}>
+                            {product.isActive ? "Active" : "Inactive"}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center space-x-2">
                           <Button 
                             size="sm" 
+                      
                             variant="outline"
                             onClick={() => handleDeleteProduct(product.id)}
                             disabled={deleteProductMutation.isPending}
