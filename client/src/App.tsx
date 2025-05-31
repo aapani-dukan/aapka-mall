@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
-import Products from "@/pages/products";
+import Products from "@/pages/Products";
 import SellerDashboard from "@/pages/seller-dashboard";
 import Checkout from "@/pages/checkout";
 import AdminLogin from "@/pages/admin-login";
