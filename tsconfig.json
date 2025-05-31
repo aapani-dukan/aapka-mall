@@ -6,11 +6,12 @@
 
     "jsx": "react-jsx",                 // React 17+ JSX ट्रांसफॉर्म सपोर्ट
 
-    "strict": true,                    // सारे strict type checks ऑन
+    "strict": true,                     // सारे strict type checks ऑन
     "esModuleInterop": true,           // CommonJS और ESModule इंटरेक्शन सही से
     "skipLibCheck": true,              // type libraries चेक स्किप करें (तेज़ी के लिए)
     "forceConsistentCasingInFileNames": true,
 
+    "moduleResolution": "node",        // ✅ यह लाइन जोड़ी गई
     "resolveJsonModule": true,         // JSON import की सुविधा
 
     "baseUrl": ".",                    // path alias के लिए बेस
