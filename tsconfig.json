@@ -1,28 +1,28 @@
 {
   "compilerOptions": {
-    "target": "ES6",                    // आउटपुट JS वर्शन
-    "module": "ESNext",                 // मॉड्यूल सिस्टम (React के लिए ESModules)
+    "target": "ES6",
+    "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
 
-    "jsx": "react-jsx",                 // React 17+ JSX ट्रांसफॉर्म सपोर्ट
+    "jsx": "react-jsx",
 
-    "strict": true,                     // सारे strict type checks ऑन
-    "esModuleInterop": true,           // CommonJS और ESModule इंटरेक्शन सही से
-    "skipLibCheck": true,              // type libraries चेक स्किप करें (तेज़ी के लिए)
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "moduleResolution": "node",        // ✅ यह लाइन जोड़ी गई
-    "resolveJsonModule": true,         // JSON import की सुविधा
+    "moduleResolution": "node",           // ✅ यह लाइन पक्की होनी चाहिए
+    "resolveJsonModule": true,
 
-    "baseUrl": ".",                    // path alias के लिए बेस
+    "baseUrl": ".",
     "paths": {
       "@client/*": ["client/src/*"],
       "@server/*": ["server/*"],
       "@shared/*": ["shared/*"]
     },
 
-    "rootDir": ".",                    // सोर्स फाइलों का रूट
-    "outDir": "dist"                   // बिल्ड फाइलों के लिए आउटपुट फोल्डर
+    "rootDir": ".",
+    "outDir": "dist"
   },
   "include": [
     "client/src/**/*",
