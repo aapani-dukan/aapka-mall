@@ -11,14 +11,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "moduleResolution": "node",           // ✅ यह लाइन पक्की होनी चाहिए
+    "moduleResolution": "node",
     "resolveJsonModule": true,
 
     "baseUrl": ".",
     "paths": {
-      "@client/*": ["client/src/*"],
-      "@server/*": ["server/*"],
-      "@shared/*": ["shared/*"]
+      "@/*": ["client/src/*"],
+      "@shared/*": ["shared/*"],
+      "@assets/*": ["attached_assets/*"]
     },
 
     "rootDir": ".",
