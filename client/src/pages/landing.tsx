@@ -524,6 +524,9 @@ export default function Landing() {
                 {/* Dashboard metrics */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div
+           className="bg-blue-50 p-4 rounded-lg">         
+
+                    
                                         <div className="text-sm text-muted-foreground">Total Sales</div>
                   </div>
                   <div className="bg-green-50 p-4 rounded-lg">
