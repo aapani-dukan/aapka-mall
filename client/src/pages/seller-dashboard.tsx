@@ -559,7 +559,7 @@ export default function SellerDashboard() {
                                         </SelectItem>
                                       ))}
                                     </SelectContent>
-                                     </select>
+                                     </Select>
                                 </FormMessage>                                <FormMessage />
                                 </FormItem>
                               )}
