@@ -388,63 +388,67 @@ export default function SellerDashboard() {
                         <DialogHeader>
                           <DialogTitle>Create New Category</DialogTitle>
                         </DialogHeader>
-                        <Form {...categoryForm}>
-                          <form onSubmit={categoryForm.handleSubmit(onCategorySubmit)} className="space-y-4">
-                            <FormField
-                              control={categoryForm.control}
-                              name="name"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Category Name</FormLabel>
-                                  <FormControl>
-                                    <Input {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={categoryForm.control}
-                              name="slug"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Category Slug</FormLabel>
-                                  <FormControl>
-                                    <Input {...field} placeholder="e.g., electronics" />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={categoryForm.control}
-                              name="description"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Description (Optional)</FormLabel>
-                                  <FormControl>
-                                    <Textarea {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            
-                            <FormField
-                              control={categoryForm.control}
-                              name="imageUrl"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel>Image URL (Optional)</FormLabel>
-                                  <FormControl>
-                                    <Input {...field} type="url" />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                      <Form {...categoryForm}>
+  <form onSubmit={categoryForm.handleSubmit(onCategorySubmit)} className="space-y-4">
+    <FormField
+      control={categoryForm.control}
+      name="name"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Category Name</FormLabel>
+          <FormControl>
+            <Input {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
+    <FormField
+      control={categoryForm.control}
+      name="slug"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Category Slug</FormLabel>
+          <FormControl>
+            <Input {...field} placeholder="e.g., electronics" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
+    <FormField
+      control={categoryForm.control}
+      name="description"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Description (Optional)</FormLabel>
+          <FormControl>
+            <Textarea {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
+    <FormField
+      control={categoryForm.control}
+      name="imageUrl"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Image URL (Optional)</FormLabel>
+          <FormControl>
+            <Input {...field} type="url" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
+    <Button type="submit">Submit</Button>
+  </form>
+</Form>
 
                             <div className="flex justify-end space-x-2">
                               <Button 
