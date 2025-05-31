@@ -296,7 +296,7 @@ export default function SellerDashboard() {
           </div>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
             {seller.isVerified ? (
-              <Badge variant="default" className="bg-green-600">
+              <Badge variant="default\" className="bg-green-600">
                 <CheckCircle className="h-3 w-3 mr-1" />
                 Verified Seller
               </Badge>
