@@ -1,5 +1,4 @@
-{
-    "include": [
+include": [
         "client/src/**/*",
         "shared/**/*",
         "server/**/*"
