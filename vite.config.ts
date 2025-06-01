@@ -1,3 +1,4 @@
+// vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
@@ -15,19 +16,19 @@ export default defineConfig({
     process.env.REPL_ID !== undefined
       ? [
           await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer()
+            m.cartographer(),
           ),
         ]
       : []),
   ],
   resolve: {
     alias: {
-      "@": resolve(__dirname, "client", "src"),
+      "@": resolve(__dirname, "src"), // 👈 सही कर दिया यहां
       "@shared": resolve(__dirname, "shared"),
       "@assets": resolve(__dirname, "attached_assets"),
     },
   },
-  root: resolve(__dirname, "client"),
+  root: resolve(__dirname), // 👈 यहां भी client हटा दिया
   build: {
     outDir: resolve(__dirname, "dist/public"),
     emptyOutDir: true,
