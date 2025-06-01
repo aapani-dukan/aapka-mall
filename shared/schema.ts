@@ -476,4 +476,43 @@ export const insertDeliveryAssignmentSchema = createInsertSchema(deliveryAssignm
 export type UpsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertSeller = z.infer<typeof insertSellerSchema>;
-export type Seller = typeof sell
+export type Seller = typeof sellers.$inferSelect;
+export type InsertCategory = z.infer<typeof insertCategorySchema>;
+export type Category = typeof categories.$inferSelect;
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type Product = typeof products.$inferSelect;
+export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type Order = typeof orders.$inferSelect;
+export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
+export type OrderItem = typeof orderItems.$inferSelect;
+export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
+export type CartItem = typeof cartItems.$inferSelect;
+export type InsertServiceProvider = z.infer<typeof insertServiceProviderSchema>;
+export type ServiceProvider = typeof serviceProviders.$inferSelect;
+export type InsertServiceBooking = z.infer<typeof insertServiceBookingSchema>;
+export type ServiceBooking = typeof serviceBookings.$inferSelect;
+export type InsertFoodVendor = z.infer<typeof insertFoodVendorSchema>;
+export type FoodVendor = typeof foodVendors.$inferSelect;
+z.infer<typeof insertFoodOrderSchema>;
+export type FoodOrder = typeof foodOrders.$inferSelect;
+export type InsertDeliveryBoy = z.infer<typeof insertDeliveryBoySchema>;
+export type DeliveryBoy = typeof deliveryBoys.$inferSelect;
+export type InsertDeliveryAssignment = z.infer<typeof insertDeliveryAssignmentSchema>;
+export type DeliveryAssignment = typeof deliveryAssignments.$inferSelect;
+
+// Extended types for API responses
+export type ProductWithSeller = Product & {
+  seller: Seller & { user: User };
+  category: Category;
+};
+
+export type CartItemWithProduct = CartItem & {
+  product: ProductWithSeller;
+};
+
+export type OrderWithItems = Order & {
+  orderItems: (OrderItem & {
+    product: Product;
+    seller: Seller;
+  })[];
+};
