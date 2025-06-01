@@ -1,23 +1,28 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  plugins: [
-    react(),
-    // runtimeErrorOverlay हटाया गया क्योंकि यह ESM-only है
-    // cartographer plugin भी हटाया गया क्योंकि उसमें await था
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(_dirname, "client", "src"),
-      "@shared": path.resolve(_dirname, "shared"),
-      "@assets": path.resolve(_dirname, "attached_assets"),
+      '@': path.resolve(__dirname, 'client', 'src'),
+      '@shared': path.resolve(__dirname, 'shared'),
+      '@assets': path.resolve(__dirname, 'attached_assets'),
     },
   },
-  root: path.resolve(_dirname, "client"),
-  build: {
-    outDir: path.resolve(_dirname, "dist/public"),
-    emptyOutDir: true,
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
   },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  }
 });
