@@ -3,18 +3,17 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-
-// यह import ऊपर करना होगा (dynamic नहीं)
-import { cartographer } from "@replit/vite-plugin-cartographer";
-
-const isDev = process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined;
+// अगर cartographer चाहिए तो ये import करो
+// import { cartographer } from "@replit/vite-plugin-cartographer";
 
 export default defineConfig({
-  root: "client", // ✅ सिर्फ एक बार root
+  root: path.resolve(__dirname, "client"), // ✅ Fix: Vite को सही root path मिले
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    ...(isDev ? [cartographer()] : []),
+    // ...(process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined
+    //   ? [cartographer()]
+    //   : []),
   ],
   resolve: {
     alias: {
@@ -24,7 +23,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist/public"), // ✅ Output build folder
     emptyOutDir: true,
   },
 });
