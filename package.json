@@ -3,10 +3,11 @@
 "type": "module",
 "license": "MIT",
 "scripts": {
-"build": "vite build && tsx build-server.ts",
-
-"build": "npm run build:client && npm run build:server",
-"start": "NODE_ENV=production node dist/index.js"
+  "dev": "vite",
+  "build:client": "vite build",
+  "build:server": "tsx build-server.ts",
+  "build": "npm run build:client && npm run build:server",
+  "start": "NODE_ENV=production node dist/index.js"
 },
 "dependencies": {
   "@hookform/resolvers": "^3.10.0",
