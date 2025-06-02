@@ -60,9 +60,10 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  app.use(express.static(path.join(__dirname,"public")));
+  const clientPath = path.join(__dirname, "client");
+app.use(express.static(clientPath));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname,"dist","public","index.html"));
+  res.sendFile(path.join(clientPath, "index.html"));
 });
   const port = process.env.PORT || 5000;
   server.listen(
