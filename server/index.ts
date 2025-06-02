@@ -2,13 +2,11 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
-// 👇👇👇👇👇 ADD THIS PART 👇👇👇👇👇
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// 👆👆👆👆👆 ADD THIS PART 👆👆👆👆👆
 
 const app = express();
 app.use(express.json());
@@ -32,11 +30,9 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "…";
       }
-
       log(logLine);
     }
   });
@@ -58,13 +54,15 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    // ✅ Serve React production build from dist/public
+    const publicPath = path.join(__dirname, "public");
+    app.use(express.static(publicPath));
+
+    app.get("*", (_req, res) => {
+      res.sendFile(path.join(publicPath, "index.html"));
+    });
   }
-  const clientPath = path.join(__dirname, "client");
-app.use(express.static(clientPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(clientPath, "index.html"));
-});
+
   const port = process.env.PORT || 5000;
   server.listen(
     {
