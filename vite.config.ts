@@ -31,8 +31,6 @@ export default async () => {
       outDir: path.resolve(__dirname, "dist/public"),
       emptyOutDir: true,
     },
-    esbuild: {
-      jsxInject: `import React from 'react'`,
-    },
+    
   });
 };
