@@ -1,8 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 
-Import { registerRoutes } from “./routes”;
+import { registerRoutes } from “./routes”;
 
-Import { setupVite, serveStatic, log } from “./vite”;
+import { setupVite, serveStatic, log } from “./vite”;
 
 
 
