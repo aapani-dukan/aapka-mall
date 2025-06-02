@@ -6,27 +6,27 @@ import { setupVite, serveStatic, log } from “./vite”;
 
 
 
-Const app = express();
+const app = express();
 
-App.use(express.json());
+app.use(express.json());
 
-App.use(express.urlencoded({ extended: false }));
-
-
-
-App.use((req, res, next) => {
-
-  Const start = Date.now();
-
-  Const path = req.path;
-
-  Let capturedJsonResponse: Record<string, any> | undefined = undefined;
+app.use(express.urlencoded({ extended: false }));
 
 
 
-  Const originalResJson = res.json;
+app.use((req, res, next) => {
 
-  Res.json = function (bodyJson, …args) {
+  const start = Date.now();
+
+  const path = req.path;
+
+  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
+
+
+  const originalResJson = res.json;
+
+  res.json = function (bodyJson, …args) {
 
     capturedJsonResponse = bodyJson;
 
@@ -36,15 +36,15 @@ App.use((req, res, next) => {
 
 
 
-  Res.on(“finish”, () => {
+  res.on(“finish”, () => {
 
-    Const duration = Date.now() – start;
+    const duration = Date.now() – start;
 
-    If (path.startsWith(“/api”)) {
+    if (path.startsWith(“/api”)) {
 
-      Let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
 
-      If (capturedJsonResponse) {
+      if (capturedJsonResponse) {
 
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
 
@@ -60,7 +60,7 @@ App.use((req, res, next) => {
 
 
 
-      Log(logLine);
+      log(logLine);
 
     }
 
@@ -76,21 +76,21 @@ App.use((req, res, next) => {
 
 (async () => {
 
-  Const server = await registerRoutes(app);
+  const server = await registerRoutes(app);
 
 
 
-  App.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 
-    Const status = err.status || err.statusCode || 500;
+    const status = err.status || err.statusCode || 500;
 
-    Const message = err.message || “Internal Server Error”;
+    const message = err.message || “Internal Server Error”;
 
 
 
-    Res.status(status).json({ message });
+    res.status(status).json({ message });
 
-    Throw err;
+    throw err;
 
   });
 
@@ -104,7 +104,7 @@ App.use((req, res, next) => {
 
   If (app.get(“env”) === “development”) {
 
-    Await setupVite(app, server);
+    await setupVite(app, server);
 
   } else {
 
@@ -120,19 +120,19 @@ App.use((req, res, next) => {
 
   // It is the only port that is not firewalled.
 
-  Const port = 5000;
+  const port = 5000;
 
-  Server.listen({
+  server.listen({
 
-    Port,
+    port,
 
-    Host: “0.0.0.0”,
+    host: “0.0.0.0”,
 
     reusePort: true,
 
   }, () => {
 
-    Log(`serving on port ${port}`);
+    log(`serving on port ${port}`);
 
   });
 
