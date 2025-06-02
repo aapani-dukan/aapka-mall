@@ -1,70 +1,142 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import express, { type Request, Response, NextFunction } from “express”;
 
-import path from "path";
-import { fileURLToPath } from "url";
+Import { registerRoutes } from “./routes”;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+Import { setupVite, serveStatic, log } from “./vite”;
 
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  const start = Date.now();
-  const pathReq = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
+Const app = express();
+
+App.use(express.json());
+
+App.use(express.urlencoded({ extended: false }));
+
+
+
+App.use((req, res, next) => {
+
+  Const start = Date.now();
+
+  Const path = req.path;
+
+  Let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
+
+
+  Const originalResJson = res.json;
+
+  Res.json = function (bodyJson, …args) {
+
     capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
+
+    return originalResJson.apply(res, [bodyJson, …args]);
+
   };
 
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    if (pathReq.startsWith("/api")) {
-      let logLine = `${req.method} ${pathReq} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
+
+
+  Res.on(“finish”, () => {
+
+    Const duration = Date.now() – start;
+
+    If (path.startsWith(“/api”)) {
+
+      Let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+
+      If (capturedJsonResponse) {
+
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+
       }
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
+
+
+
+      If (logLine.length > 80) {
+
+        logLine = logLine.slice(0, 79) + “…”;
+
       }
-      console.log(logLine); // अब सीधे console.log से होगा
+
+
+
+      Log(logLine);
+
     }
+
   });
 
-  next();
+
+
+  Next();
+
 });
 
+
+
 (async () => {
-  await registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+  Const server = await registerRoutes(app);
 
-    res.status(status).json({ message });
-    // throw err; // हटा दिया ताकि async context में दिक्कत न हो
+
+
+  App.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+
+    Const status = err.status || err.statusCode || 500;
+
+    Const message = err.message || “Internal Server Error”;
+
+
+
+    Res.status(status).json({ message });
+
+    Throw err;
+
   });
 
-  if (app.get("env") === "development") {
-    await setupVite(app, null); // server नहीं बन रहा तो null पास किया
-  } else {
-    // ✅ Serve React production build from dist/public
-    const publicPath = path.join(__dirname, "public");
-    app.use(express.static(publicPath));
 
-    app.get("*", (_req, res) => {
-      res.sendFile(path.join(publicPath, "index.html"));
-    });
+
+  // importantly only setup vite in development and after
+
+  // setting up all the other routes so the catch-all route
+
+  // doesn’t interfere with the other routes
+
+  If (app.get(“env”) === “development”) {
+
+    Await setupVite(app, server);
+
+  } else {
+
+    serveStatic(app);
+
   }
 
-  const port = process.env.PORT || 5000;
-  app.listen(port, "0.0.0.0", () => {
-    console.log(`serving on port ${port}`);
+
+
+  // ALWAYS serve the app on port 5000
+
+  // this serves both the API and the client.
+
+  // It is the only port that is not firewalled.
+
+  Const port = 5000;
+
+  Server.listen({
+
+    Port,
+
+    Host: “0.0.0.0”,
+
+    reusePort: true,
+
+  }, () => {
+
+    Log(`serving on port ${port}`);
+
   });
+
 })();
+
+
+
