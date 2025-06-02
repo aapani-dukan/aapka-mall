@@ -55,7 +55,7 @@ app.use((req, res, next) => {
     await setupVite(app, null); // server नहीं बन रहा तो null पास किया
   } else {
     // ✅ Serve React production build from dist/public
-    const publicPath = path.join(__dirname, "dist", "public");
+    const publicPath = path.join(__dirname, "public");
     app.use(express.static(publicPath));
 
     app.get("*", (_req, res) => {
