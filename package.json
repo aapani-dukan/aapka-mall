@@ -1,4 +1,4 @@
-name": "rest-express",
+{name": "rest-express",
 "version": "1.0.0",
 "type": "module",
 "license": "MIT",
@@ -101,4 +101,5 @@ name": "rest-express",
   "tsx": "^4.19.1",
   "typescript": "5.6.3"
   
+}
 }
