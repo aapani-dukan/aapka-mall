@@ -60,7 +60,9 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
   const port = 5000;
   server.listen(
     {
