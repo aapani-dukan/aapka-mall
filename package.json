@@ -3,8 +3,8 @@
 "type": "module",
 "license": "MIT",
 "scripts": {
-"build:client": "vite build",
-"build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=cjs --outfile=dist/index.js",
+"build": "vite build && tsx build-server.ts",
+
 "build": "npm run build:client && npm run build:server",
 "start": "NODE_ENV=production node dist/index.js"
 },
