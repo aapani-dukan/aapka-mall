@@ -3,10 +3,13 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-  "build:client": "vite build",
-  "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=cjs --outfile=dist/index.js",
+  "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+  "dev:client": "vite",
+  "dev:server": "nodemon dist/index.js",
   "build": "npm run build:client && npm run build:server",
-  "start": "NODE_ENV=production node dist/index.js"
+  "build:client": "vite build",
+  "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js",
+  "start": "node dist/index.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
