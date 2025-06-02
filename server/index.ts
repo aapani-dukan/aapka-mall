@@ -1,4 +1,4 @@
-import express, { type Request, Response, NextFunction } from “express”;
+import express, { type Request, Response, NextFunction } from "express";
 
 Import { registerRoutes } from “./routes”;
 
