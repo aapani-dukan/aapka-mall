@@ -7,7 +7,7 @@
   "build:client": "vite build",
   "build:server": "tsx build-server.ts",
   "build": "npm run build:client && npm run build:server",
-  "start": "NODE_ENV=production node dist/index.js"
+  "start": "NODE_ENV=production node dist/server/index.js"
 },
 "dependencies": {
   "@hookform/resolvers": "^3.10.0",
