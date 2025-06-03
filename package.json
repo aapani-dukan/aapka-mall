@@ -4,7 +4,7 @@
 "license": "MIT",
 "scripts": {
   "dev": "vite",
-  "build": "vite build",
+  "build: client": "vite build",
   "build:server": "tsx build-server.ts",
   "build": "npm run build:client && npm run build:server",
   "start": "NODE_ENV=production node dist/server/index.js"
