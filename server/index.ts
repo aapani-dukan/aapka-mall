@@ -41,24 +41,37 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 (async () => {
-  await registerRoutes(app);
+  try {
+    console.log("🟡 Step 1: Registering routes...");
+    await registerRoutes(app);
+    console.log("🟢 Step 1 done.");
+  } catch (err) {
+    console.error("❌ registerRoutes failed:", err);
+  }
 
-  // Error handler middleware
+  // Error handler middleware (throw हटाया गया)
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(status).json({ message });
-    throw err;
+    console.error("❌ Error handled in middleware:", err);
   });
 
-  if (app.get("env") === "development") {
-    await setupVite(app, app);
-  } else {
-    serveStatic(app);
+  try {
+    console.log("🟡 Step 2: Serving frontend...");
+    if (app.get("env") === "development") {
+      await setupVite(app, app);
+    } else {
+      serveStatic(app);
+    }
+    console.log("🟢 Step 2 done.");
+  } catch (err) {
+    console.error("❌ setupVite or serveStatic failed:", err);
   }
 
-  const port = process.env.PORT || 5000;
+  const port = Number(process.env.PORT) || 5000;
   app.listen(port, "0.0.0.0", () => {
-    log(`serving on port ${port}`);
+    console.log(`✅ Shopnish server is live on port ${port}`);
+    log(`✅ Shopnish server is live on port ${port}`);
   });
 })();
