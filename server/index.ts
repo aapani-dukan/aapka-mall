@@ -35,7 +35,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check route — बहुत जरूरी, इसे सबसे पहले रखो
+// ✅ Health check route for Render
+app.get("/healthz", (_req: Request, res: Response) => {
+  res.status(200).send("✅ Health check passed!");
+});
+
+// Also a custom root check
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).send("✅ Shopnish server is live!");
 });
@@ -49,7 +54,7 @@ app.get("/", (_req: Request, res: Response) => {
     console.error("❌ registerRoutes failed:", err);
   }
 
-  // Error handler middleware (throw हटाया गया)
+  // Error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
