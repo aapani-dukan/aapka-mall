@@ -13,7 +13,7 @@ import {
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
-
+import { InferModel } from "drizzle-orm";
 // Session storage table (mandatory for Replit Auth)
 export const sessions = pgTable(
   "sessions",
@@ -227,6 +227,7 @@ export const deliveryAssignments = pgTable("delivery_assignments", {
 });
 
 // Categories
+export type Category = InferModel<typeof categories>;
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull(),
