@@ -306,7 +306,7 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
 export const insertSellerSchema = createInsertSchema(sellers);
 export type InsertSeller = z.infer<typeof insertSellerSchema>;
 
-// ❌ यह मत लिखें: export { insertSellerSchema };
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -331,7 +331,7 @@ export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
 
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
-export { insertSellerSchema };
+
 export type OrderItem = typeof orderItems.$inferSelect;
 export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
 
