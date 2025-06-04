@@ -306,7 +306,7 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
 export const insertSellerSchema = createInsertSchema(sellers);
 export type InsertSeller = z.infer<typeof insertSellerSchema>;
 
-
+export { sellers };
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
