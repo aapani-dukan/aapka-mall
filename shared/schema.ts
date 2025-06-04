@@ -260,7 +260,10 @@ export const insertDeliveryBoySchema = createInsertSchema(deliveryBoys).omit({
   createdAt: true,
 });
 
-
+export const insertCartItemSchema = createInsertSchema(cartItems).omit({
+  id: true,
+  createdAt: true,
+});
 export const insertOrderSchema = createInsertSchema(orders).omit({
   id: true,
   createdAt: true,
