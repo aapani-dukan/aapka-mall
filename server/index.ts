@@ -1,4 +1,6 @@
+
 import express, { Request, Response, NextFunction } from "express";
+import { createServer } from "http";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
@@ -45,6 +47,9 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).send("✅ Shopnish server is live!");
 });
 
+// Create HTTP server
+const server = createServer(app); // ✅ यह नया जोड़ा गया
+
 (async () => {
   try {
     console.log("🟡 Step 1: Registering routes...");
@@ -65,7 +70,7 @@ app.get("/", (_req: Request, res: Response) => {
   try {
     console.log("🟡 Step 2: Serving frontend...");
     if (app.get("env") === "development") {
-      await setupVite(app, app);
+      await setupVite(server, app); // ✅ यहाँ सही किया गया
     } else {
       serveStatic(app);
     }
@@ -75,7 +80,7 @@ app.get("/", (_req: Request, res: Response) => {
   }
 
   const port = Number(process.env.PORT) || 5000;
-  app.listen(port, "0.0.0.0", () => {
+  server.listen(port, "0.0.0.0", () => {
     console.log(`✅ Shopnish server is live on port ${port}`);
     log(`✅ Shopnish server is live on port ${port}`);
   });
