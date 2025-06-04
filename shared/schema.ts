@@ -259,11 +259,7 @@ export const insertDeliveryBoySchema = createInsertSchema(deliveryBoys).omit({
   id: true,
   createdAt: true,
 });
-export const insertSellerSchema = createInsertSchema(sellers);
-export const insertCartItemSchema = createInsertSchema(cartItems).omit({
-  id: true,
-  createdAt: true,
-});
+
 
 export const insertOrderSchema = createInsertSchema(orders).omit({
   id: true,
@@ -307,7 +303,10 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
   id: true,
   createdAt: true,
 });
+export const insertSellerSchema = createInsertSchema(sellers);
+export type InsertSeller = z.infer<typeof insertSellerSchema>;
 
+// ❌ यह मत लिखें: export { insertSellerSchema };
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
