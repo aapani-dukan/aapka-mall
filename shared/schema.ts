@@ -362,4 +362,4 @@ export type InsertServiceBooking = z.infer<typeof insertServiceBookingSchema>;
 
 export type Review = typeof reviews.$inferSelect;
 export type InsertReview = z.infer<typeof insertReviewSchema>;
-export { sellers };
+
