@@ -305,7 +305,11 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
 });
 export const insertSellerSchema = createInsertSchema(sellers);
 export type InsertSeller = z.infer<typeof insertSellerSchema>;
-
+export const sellers = pgTable("sellers", {
+  id: uuid("id").primaryKey(),
+  name: text("name"),
+  ...
+});
 
 // Types
 export type User = typeof users.$inferSelect;
