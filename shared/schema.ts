@@ -259,7 +259,7 @@ export const insertDeliveryBoySchema = createInsertSchema(deliveryBoys).omit({
   id: true,
   createdAt: true,
 });
-
+export const insertSellerSchema = createInsertSchema(sellers);
 export const insertCartItemSchema = createInsertSchema(cartItems).omit({
   id: true,
   createdAt: true,
@@ -332,7 +332,7 @@ export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
 
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
-
+export { insertSellerSchema };
 export type OrderItem = typeof orderItems.$inferSelect;
 export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
 
