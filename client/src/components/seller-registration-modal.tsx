@@ -76,7 +76,7 @@ export default function SellerRegistrationModal() {
   if (!user) {
     return (
       <Dialog open={isOpen} onOpenChange={close}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md z-[100]" />
           <DialogHeader>
             <DialogTitle className="flex items-center">
               <Store className="h-5 w-5 mr-2" />
