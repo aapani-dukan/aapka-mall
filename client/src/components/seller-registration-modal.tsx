@@ -23,7 +23,9 @@ export default function SellerRegistrationModal() {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-
+useEffect(() => {
+  console.log("MODAL isOpen:", isOpen, "| User:", user);
+}, [isOpen, user]);
   const form = useForm<z.infer<typeof sellerFormSchema>>({
     resolver: zodResolver(sellerFormSchema),
     defaultValues: {
